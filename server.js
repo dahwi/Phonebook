@@ -1,21 +1,24 @@
 const express = require("express");
 const connectDB = require("./config/db");
+async function runServer() {
+  const app = express();
 
-const app = express();
+  //Connect Database
+  await connectDB();
 
-//Connect Database
-connectDB();
+  //Init Middleware
+  app.use(express.json({ extended: false }));
 
-//Init Middleware
-app.use(express.json({ extended: false }));
+  app.get("/", (req, res) => res.json({ msg: "Welcome to the PhoneBook API" }));
 
-app.get("/", (req, res) => res.json({ msg: "Welcome to the PhoneBook API" }));
+  //Define Routes
+  app.use("/api/users", require("./routes/users"));
+  app.use("/api/contacts", require("./routes/contacts"));
+  app.use("/api/auth", require("./routes/auth"));
 
-//Define Routes
-app.use("/api/users", require("./routes/users"));
-app.use("/api/contacts", require("./routes/contacts"));
-app.use("/api/auth", require("./routes/auth"));
+  const PORT = process.env.PORT || 5000;
 
-const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+}
 
-app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+runServer();
