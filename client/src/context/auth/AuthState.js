@@ -1,6 +1,6 @@
 import AuthContext from "./authContext";
 import React, { useReducer } from "react";
-import authReducer from "./authReducer";
+//import AuthReducer from "./authReducer";
 import {
   REMOVE_ALERT,
   CONTACT_ERROR,
@@ -23,7 +23,7 @@ const AuthState = (props) => {
     user: null,
   };
 
-  const [state, dispatch] = useReducer(authReducer, initialState);
+  //const [state, dispatch] = useReducer(AuthReducer, initialState);
 
   //Load User
 
@@ -37,13 +37,16 @@ const AuthState = (props) => {
 
   return (
     <AuthContext.Provider
-      value={{
-        token: state.token,
-        isAuthenticated: state.isAuthenticated,
-        loading: state.loading,
-        error: state.error,
-        user: state.user,
-      }}
+      value={
+        {}
+        //       {
+        //     token: state.token,
+        //     isAuthenticated: state.isAuthenticated,
+        //     loading: state.loading,
+        //     error: state.error,
+        //     user: state.user,
+        //   }
+      }
     >
       {props.children}
     </AuthContext.Provider>
